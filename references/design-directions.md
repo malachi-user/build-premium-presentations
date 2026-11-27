@@ -1,54 +1,50 @@
-# Design directions
+# Design directions, color-per-concept, and visual language
 
-Choose one lane, then adapt it to the brand. Do not combine unrelated visual languages.
+Choose one art-direction lane, then adapt it to the brand. Do not combine unrelated visual languages.
 
 | Lane | Best for | Palette/material | Motion |
 |---|---|---|---|
-| Dark cinematic | Tech, AI, launches, creative keynotes | Tinted near-black, one electric/warm accent, grain, restrained glass, deep imagery | Purposeful entrances, particles/canvas, one major spectacle |
-| Editorial minimal | Ideas, culture, leadership, premium services | Bone/ink, one muted accent, strong typography, full-bleed photography | Slow fades, masks, calm parallax |
-| Warm human | Education, community, personal brand, workshops | Cream/earth, one warm accent, tactile shapes, friendly imagery | Soft springs, gentle reveals, character moments |
+| Dark cinematic | Tech, AI, launches, creative keynotes | Tinted near-black (`#0a0f1f` / `#0F172A`), electric/warm accent (`#14B8A6` / `#F59E0B`), grain, restrained glass, deep imagery | Purposeful entrances, particles/neural canvas, one major spectacle |
+| Editorial minimal | Ideas, culture, leadership, premium services | Bone/ink, one muted accent, strong serif/sans typography, full-bleed photography | Slow fades, masks, calm parallax |
+| Warm human | Education, community, personal brand, workshops | Cream/earth or deep night-blue with warm gold/coral, tactile shapes, friendly imagery | Soft springs, gentle reveals, character moments |
 | Bold brutalist-lite | Youth, design, campaigns | High contrast, one loud color, off-grid type, solid blocks | Snappy cuts, marquees, cursor play |
 | Corporate clean | Sales, boards, technical or institutional work | White/navy/charcoal, restrained accent, diagrams and proof | Minimal fades; clarity is the premium signal |
 
-## System definition
+## Five core visual principles
 
-Before coding, write down:
+1. **Every explanation becomes an object, not a block of text.**
+   - Concept cluster → central core with color-coded glowing cards and connecting SVG wires.
+   - Customer/user dialogue → realistic chat window with typing indicator (`...`) and underlying layers.
+   - Metric → giant animated counter (`data-count`, `150–260px` at 1080p) with a one-line caption below.
+   - Timeline / process → horizontal or vertical rail with stops that light up sequentially.
+   - Case study / multi-part story → folder/file with switching tabs.
+2. **Color-per-concept.**
+   - Assign each distinct concept its own semantic color token (`--c`). Repeat that exact color on its icon tile, connecting wire, border glow, and heading, while keeping main slide titles neutral white/ink. Color tells the viewer what belongs to what without extra words.
+3. **The buildup builds the picture — never just adds another text line.**
+   - Every click must change the composition: a card flies out from the core and a wire stretches to it; a half-screen photo expands to full-screen (`width: 100%`) as a quote lands over it; a tab switches; a dark blur layer (`.verdict`) drops with the takeaway sentence.
+4. **Background with depth, never flat black.**
+   - Use a deep tinted gradient base with two soft radial glows tuned to the active slide's concept colors (`--ga`, `--gb`), an ambient low-density neural/particle canvas, or a full-bleed photograph with a directional readability shade (`.shade-b`, `.shade-t`, `.shade-all`).
+5. **Pacing and rhythm.**
+   - Never place three dense diagram/card slides in a row. After a dense slide, insert a "moment" slide: a full-bleed photograph, a single giant statement (`70–110px`), or one dominant counter. Opening, climax, and closing slides should always feel like "moments".
 
-- Direction in one phrase.
-- Brand tone in three adjectives.
-- One display, one body, and optional label/mono font role.
-- Background, ink, muted, panel, accent, and optional support color tokens.
-- 8pt-based spacing scale, one radius family, one shadow/depth recipe, and one easing family.
-- Image treatment: full-bleed photography, cutout, duotone, monochrome, illustration, demo UI, or typographic-only.
-- Motion energy: restrained, medium, or cinematic.
-- One or two signature moments for the whole deck.
+## Real photography vs. AI imagery
 
-## Composition
+- **Real people, historical events, places, products, or documents:** always use **real photography** (e.g., free-licensed / Public Domain / CC0 photos from Wikimedia Commons). Include a clean `<div class="credit">Photographer, license, Wikimedia Commons</div>` caption (without middle dots).
+- **Abstract concepts, atmosphere, or scenes with no real photograph:** use AI-generated imagery with **one consistent style sentence** appended to every prompt across the deck so all images belong to the same visual series.
+- **Presentation treatments for imagery (avoid generic boxed pictures):**
+  - Full-bleed with slow Ken Burns zoom + directional gradient shade under text.
+  - Half-screen bleed merging seamlessly into the slide background (optionally expanding to full-bleed on the final click).
+  - Zoom into a specific detail on click (`transform: scale(...)` with `transform-origin` on the detail).
+  - Same image shifting state (warm-to-cold filter or sepia-to-color transition for before/after).
 
-- Use a disciplined grid, often 12 columns, but break it once or twice deliberately.
-- Prefer 7/5 or 8/4 asymmetry over automatic 6/6 splits.
-- Alternate dense and airy slides. Never repeat the same card grid several slides in a row.
-- Keep exactly one focal point per slide. Squint-test it.
-- Treat whitespace as hierarchy, not leftover space.
-- Make important numbers much larger than their labels.
-- Use full-bleed media only when it earns the entire frame.
+## Strict Zero-AI-Tell Visual Rules (Avoid)
 
-## Background vocabulary
-
-Select one background family and vary it subtly:
-
-- Solid editorial field plus hairline rules.
-- Art-directed image with readable overlay/vignette.
-- Radial aurora plus fine grain.
-- Low-density canvas network or particles reacting gently to the pointer.
-- Gradient mesh with two or three related hues.
-- Diagrammatic grid, timeline, orbital, waveform, or data motif tied to content.
-
-Pause background animation when the document is hidden, reduce density on weak/mobile hardware, and make the static frame look finished.
-
-## Avoid
-
-- Generic purple/blue gradient, centered hero, three identical cards, and default system typography.
-- Hollow outlined display text as a default.
-- Glass on every element, glow on every edge, or a different accent on each slide without narrative meaning.
-- Decoration that competes with the presenter or makes projection illegible.
+- **No em-dashes (`—`) or en-dashes (`–`)** in visible slide text (replace with comma, colon, period, or line break).
+- **No middle dots (`·`)** as decorative separators.
+- **No trailing arrows (`→`, `←`)** at the end of lines.
+- **No emojis inside slide titles or bullet points** (use Lucide/SVG icons instead).
+- **No small eyebrow label above every single slide title** — use eyebrows only when they carry essential context, not as a mechanical template on every slide.
+- **No three identical cards in a row** across consecutive slides.
+- **No hollow/outlined display text** (`-webkit-text-stroke`) — always use solid fill.
+- **No unrequested gradient/colored highlight word in every title** (unless the user explicitly asks for title highlights).
+- **No default purple-pink AI gradient glow.**
